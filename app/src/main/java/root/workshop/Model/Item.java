@@ -1,14 +1,15 @@
 package root.workshop.Model;
 
-/**
- * Created by root on 12.12.15.
- */
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable
 public class Item {
     private static int id = -11000;
 
-    private String content;
-    private String itemId;
-    private String parentItemId;
+    @DatabaseField private String content;
+    @DatabaseField private String itemId;
+    @DatabaseField private String parentItemId;
 
     public Item(String content,Item parentItem){
 

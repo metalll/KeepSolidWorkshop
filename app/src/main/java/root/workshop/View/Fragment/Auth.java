@@ -13,6 +13,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
+import root.workshop.BL.GlobalManager;
 import root.workshop.Controller.MyFragmentManager;
 import root.workshop.R;
 
@@ -29,7 +30,7 @@ public class Auth extends Fragment {
     @ViewById(R.id.input_password) EditText _passwordText;
     @ViewById(R.id.btn_login) Button _loginButton;
     @ViewById(R.id.link_signup) TextView _signupLink;
-
+    boolean isAuth=false;
 
 
 
@@ -62,12 +63,20 @@ public class Auth extends Fragment {
         String password = _passwordText.getText().toString();
 
         // TODO: Аутентификация логика
+        if(login.equals(GlobalManager.getInstance().getUser().getLogin())&&password.equals(GlobalManager.getInstance().getUser().getPass()))
+        {
+            isAuth=true;
+        }
+
+
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                         onLoginSuccess();
-                        // onLoginFailed();
+
+                        if(isAuth)onLoginSuccess();
+                        else onLoginFailed();
+
                         progressDialog.dismiss();
                     }
                 }, 3000);
@@ -75,7 +84,8 @@ public class Auth extends Fragment {
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        myFragmentManager.setFragment(R.id.layout,new MindMapList_(),true);
+
+            myFragmentManager.setFragment(R.id.layout, new MindMapList_(), true);
     }
 
     public void onLoginFailed() {
@@ -96,7 +106,7 @@ public class Auth extends Fragment {
             _loginText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 5 || password.length() > 10) {
+        if (password.isEmpty() || password.length() < 5 ) {
             _passwordText.setError("введите не менее 5 символов");
             valid = false;
         } else {

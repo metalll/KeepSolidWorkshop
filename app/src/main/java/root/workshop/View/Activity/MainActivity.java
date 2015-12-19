@@ -10,8 +10,10 @@ import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
 
+import root.workshop.BL.GlobalManager;
 import root.workshop.Controller.MyFragmentManager;
 import root.workshop.R;
+import root.workshop.View.Fragment.Auth;
 import root.workshop.View.Fragment.Auth_;
 
 
@@ -27,10 +29,15 @@ public class MainActivity extends Activity {
     @AfterInject
     void init() {
         if(!isStarted){
+            GlobalManager.getInstance().init();
             myFragmentManager.init(this).setFragment(R.id.layout,new Auth_(),true);
-            isStarted=true;}
+            isStarted=true;
+        }
         else
             myFragmentManager.init(this);
+
+
+
     }
 
     @Override
