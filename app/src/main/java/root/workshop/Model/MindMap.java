@@ -9,56 +9,58 @@ import com.j256.ormlite.table.DatabaseTable;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-@DatabaseTable
+
 public class MindMap {
-  //  @ForeignCollectionField
-    private List<Item> itemMap = new ArrayList();
-    private ViewItemInfo viewItemInfo;
-    private int backgr;
-    @DatabaseField
-    private String content;
+    private static int          id = 0;
 
-    public MindMap(String content,int backgr){
-        this.content=content;
-        this.backgr = backgr;
+    private String              mindMapId;
+    private Map<String,Item>    items;
+    private String              userLogin;
+    private String              group;
+
+    private MindMap(String userLogin,Item item){
+        this.userLogin=userLogin;
+        this.items=new HashMap<>();
+        items.put(item.getItemId(),item);
+        mindMapId="mindMap:"+id;
+        id++;
     }
 
-    public void addItem(String content,Item root)
-    {
-
-        Item item=new Item(content,root);
-        itemMap.add(item);
+    public void addItem(Item item) {
+        items.put(item.getItemId(),item);
     }
 
-    public List<Item> getItemMap() {
-        return itemMap;
+    public void remove(String id) {
+        items.remove(id);
     }
 
-    public ViewItemInfo getViewItemInfo() {
-        return viewItemInfo;
+    public void getItem(String id) {
+        items.get(id);
     }
 
-    public void setViewItemInfo(ViewItemInfo viewItemInfo) {
-        this.viewItemInfo = viewItemInfo;
+    public String getMindMapId() {
+        return mindMapId;
     }
 
-    public String getContent() {
-        return content;
+    public String getUserLogin() {
+        return userLogin;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
     }
 
-    public int getBackgr() {
-        return backgr;
+    public String getGroup() {
+        return group;
     }
 
-    public void setBackgr(int backgr) {
-        this.backgr = backgr;
+    public void setGroup(String group) {
+        this.group = group;
     }
 }

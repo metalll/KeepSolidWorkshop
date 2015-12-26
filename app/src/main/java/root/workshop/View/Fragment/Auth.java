@@ -23,9 +23,6 @@ public class Auth extends Fragment {
 
     public Auth() {}
 
-
-
-
     @ViewById(R.id.input_login) EditText _loginText;
     @ViewById(R.id.input_password) EditText _passwordText;
     @ViewById(R.id.btn_login) Button _loginButton;
@@ -85,7 +82,7 @@ public class Auth extends Fragment {
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
 
-            myFragmentManager.setFragment(R.id.layout, new MindMapList_(), true);
+            myFragmentManager.setFragment(R.id.layout, new MindMapTab(), true);
     }
 
     public void onLoginFailed() {
@@ -115,7 +112,6 @@ public class Auth extends Fragment {
 
         return valid;
     }
-
 
 }
 

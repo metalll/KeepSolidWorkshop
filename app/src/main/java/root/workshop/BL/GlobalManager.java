@@ -1,9 +1,7 @@
 package root.workshop.BL;
 
-import root.workshop.Model.Item;
 import root.workshop.Model.MindMap;
 import root.workshop.Model.User;
-import root.workshop.Model.ViewItemInfo;
 
 /**
  * Created by root on 15.12.15.
@@ -14,6 +12,10 @@ public class GlobalManager {
         return instatnce;
     }
     private User user;
+    private MindMap mindMap;
+
+
+
     public void init()
     {
 
@@ -22,6 +24,15 @@ public class GlobalManager {
         user.setLogin("admin");
         user.setPass("admin");
 
+
     }
     public User getUser(){return user;}
+
+    public MindMap getMindMap() {
+        return mindMap;
+    }
+
+    public void setMindMap(MindMap mindMap) {
+        this.mindMap = mindMap;
+    }
 }
